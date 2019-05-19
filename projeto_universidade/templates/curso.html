@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block page_content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <!-- Cabeçalho -->
+            {% if "/cadastrar-curso" in request.path %}
+              <h5 class="card-title">Cadastrar Curso</h5>
+              <p class="card-text">
+                Cadastre um novo <code>curso</code>.
+              </p>
+            {% elif "/editar-curso" in request.path %}
+              <h5 class="card-title">Editar Curso</h5>
+              <p class="card-text">
+                Altere as informações do <code>curso</code>.
+              </p>
+            {% elif "/visualizar-curso" in request.path %}
+              <h5 class="card-title">Visualizar Curso</h5>
+              <p class="card-text">
+                Visualize as informações do <code>Curso</code>.
+              </p>
+            {% elif "/excluir-curso" in request.path %}
+              <h5 class="card-title">Excluir curso</h5>
+              <p class="card-text">
+                Você tem certeza que deseja excluir o <code>Curso</code>?
+              </p>
+            {% endif %}
+          
+            <!-- Formulário -->
+            <form method="POST">
+              {% csrf_token %}
+              
+              
+              <!-- Nome -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text font-weight-bold">Nome</span>
+                </div>
+                {% render_field form.nome class+="form-control" %} 
+
+                {% if "/visualizar-curso" in request.path or "/excluir-curso" in request.path %}
+                  <input disabled value="{{curso.nome}}" class="form-control text-black-50">
+                {% endif %}
+              </div>
+
+              {% for error in form.nome.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{error}}
+                </div>
+              {% endfor %}
+
+
+              <!-- Area -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text font-weight-bold">Area</span>
+                </div>
+                {% render_field form.area class+="form-control" %}
+
+                {% if "/visualizar-curso" in request.path or "/excluir-curso" in request.path %}
+                  <input disabled value="{{curso.area}}" class="form-control text-black-50">
+                {% endif %}
+              </div>
+              
+              {% for error in form.area.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{error}}
+                </div>
+              {% endfor %}
+
+              
+              <!-- Nota MEC -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text font-weight-bold">Nota MEC</span>
+                </div>
+                {% render_field form.notaMEC class+="form-control" %}
+
+                {% if "/visualizar-curso" in request.path or "/excluir-curso" in request.path %}
+                  <textarea rows="5" disabled class="form-control text-black-50">{{curso.notaMEC}}</textarea>
+                {% endif %}
+              </div>
+              
+              {% for error in form.notaMEC.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{error}}
+                </div>
+              {% endfor %}
+
+              
+              <!-- Ações -->
+              <div class="float-right">
+                <a class="btn btn-secondary" href="{% url 'cursos' %}">Voltar</a>
+                {% if "/cadastrar-curso" in request.path or "/editar-curso" in request.path %}
+                  <button type="submit" class="btn btn-primary">Enviar</button>
+                {% elif "/excluir-curso" in request.path %}
+                  <button type="submit" class="btn btn-danger">Confirmar</button>
+                {% endif %}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

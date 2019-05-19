@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+  <a class="btn btn-primary float-right mb-4" href="{% url 'cadastrar-universidade' %}">Nova Universidade</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Sigla</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Cidade</th>
+        <th></th>
+        <th class="text-right pr-4" scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for universidade in universidades %}
+        <tr>
+          <th scope="row">{{ universidade.id }}</th>
+          <td>{{ universidade.nome }}</td>
+          <td>{{ universidade.sigla }}</td>
+          <td>{{ universidade.endereco.estado }}</td>
+          <td>{{ universidade.endereco.cidade }}<td>
+          <td class="float-right border-0">
+            <a class="btn-sm btn-secondary mx-1" href="{% url 'visualizar-universidade' codigo=universidade.id %}">Visualizar</a>
+            <a class="btn-sm btn-primary mx-1" href="{% url 'editar-universidade' codigo=universidade.id %}">Editar</a>
+            <a class="btn-sm btn-danger mx-1" href="{% url 'excluir-universidade' codigo=universidade.id %}">Excluir</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>  
+
+{% endblock %}

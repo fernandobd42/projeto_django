@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block page_content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <!-- Cabeçalho -->
+            {% if "/cadastrar-endereco" in request.path %}
+              <h5 class="card-title">Cadastrar Endereco</h5>
+              <p class="card-text">
+                Cadastre um novo <code>Endereco</code>.
+              </p>
+            {% elif "/editar-endereco" in request.path %}
+              <h5 class="card-title">Editar Endereco</h5>
+              <p class="card-text">
+                Altere as informações de <code>Endereco</code>.
+              </p>
+            {% elif "/visualizar-endereco" in request.path %}
+              <h5 class="card-title">Visualizar Endereco</h5>
+              <p class="card-text">
+                Visualize as informações de <code>Endereco</code>.
+              </p>
+            {% elif "/excluir-endereco" in request.path %}
+              <h5 class="card-title">Excluir Endereco</h5>
+              <p class="card-text">
+                Você tem certeza que deseja excluir o <code>Endereco</code>?
+              </p>
+            {% endif %}
+          
+            <!-- Formulário -->
+            <form method="POST">
+              {% csrf_token %}
+              
+
+               <!-- Rua -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text font-weight-bold">Rua</span>
+                </div>
+                {% render_field form.rua class+="form-control" %}
+
+                {% if "/visualizar-endereco" in request.path or "/excluir-endereco" in request.path %}
+                  <input disabled value="{{endereco.rua}}" class="form-control text-black-50">
+                {% endif %}
+              </div>
+
+              {% for error in form.rua.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{error}}
+                </div>
+              {% endfor %}
+
+              <!-- Bairro -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text font-weight-bold">Bairro</span>
+                </div>
+                {% render_field form.bairro class+="form-control" %}
+
+                {% if "/visualizar-endereco" in request.path or "/excluir-endereco" in request.path %}
+                  <input disabled value="{{endereco.bairro}}" class="form-control text-black-50">
+                {% endif %}
+              </div>
+
+              {% for error in form.bairro.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{error}}
+                </div>
+              {% endfor %}
+  
+
+              <!-- Número -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text font-weight-bold">Número</span>
+                </div>
+                {% render_field form.numero class+="form-control" %}
+
+                {% if "/visualizar-endereco" in request.path or "/excluir-endereco" in request.path %}
+                  <textarea rows="5" disabled class="form-control text-black-50">{{endereco.numero}}</textarea>
+                {% endif %}
+              </div>
+
+              {% for error in form.numero.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{error}}
+                </div>
+              {% endfor %}
+
+
+              <!-- Estado -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text font-weight-bold">Estado</span>
+                </div>
+                {% render_field form.estado class+="form-control" %}
+
+                {% if "/visualizar-endereco" in request.path or "/excluir-endereco" in request.path %}
+                  <input disabled value="{{endereco.estado}}" class="form-control text-black-50">
+                {% endif %}
+              </div>
+
+              {% for error in form.estado.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{error}}
+                </div>
+              {% endfor %}
+
+
+              <!-- Cidade -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text font-weight-bold">Cidade</span>
+                </div>
+                {% render_field form.cidade class+="form-control" %}
+
+                {% if "/visualizar-endereco" in request.path or "/excluir-endereco" in request.path %}
+                  <input disabled value="{{endereco.cidade}}" class="form-control text-black-50">
+                {% endif %}
+              </div>
+
+              {% for error in form.cidade.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{error}}
+                </div>
+              {% endfor %}
+
+              
+              <!-- Ações -->
+              <div class="float-right">
+                <a class="btn btn-secondary" href="{% url 'enderecos' %}">Voltar</a>
+                {% if "/cadastrar-endereco" in request.path or "/editar-endereco" in request.path %}
+                  <button type="submit" class="btn btn-primary">Enviar</button>
+                {% elif "/excluir-endereco" in request.path %}
+                  <button type="submit" class="btn btn-danger">Confirmar</button>
+                {% endif %}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

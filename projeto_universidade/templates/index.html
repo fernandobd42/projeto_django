@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+  <div class="container">
+    <div class="row">
+      <a href="{% url 'universidades' %}" class="col-sm-6 col-xs-12 btn btn-light">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Lista de Universidades</h5>
+              <p class="card-text">
+                Veja aqui a lista de <code>Universidades</code> cadastradas.
+              </p>
+            </div>
+          </div>
+        </a>
+      <a href="{% url 'cadastrar-universidade' %}" class="col-sm-6 col-xs-12 btn btn-light">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Cadastrar Universidade</h5>
+            <p class="card-text">
+              Cadastre aqui uma nova <code>Universidade</code>.
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="row">
+      <a href="{% url 'enderecos' %}" class="col-sm-6 col-xs-12 btn btn-light">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Lista de Endereços</h5>
+              <p class="card-text">
+                Veja aqui a lista de <code>Endereços</code> cadastrados.
+              </p>
+            </div>
+          </div>
+        </a>
+      <a href="{% url 'cadastrar-endereco' %}" class="col-sm-6 col-xs-12 btn btn-light">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Cadastrar Endereço</h5>
+            <p class="card-text">
+              Cadastre aqui um novo <code>Endereço</code>.
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="row">
+      <a href="{% url 'cursos' %}" class="col-sm-6 col-xs-12 btn btn-light">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Lista de Cursos</h5>
+              <p class="card-text">
+                Veja aqui a lista de <code>Cursos</code> cadastrados.
+              </p>
+            </div>
+          </div>
+        </a>
+      <a href="{% url 'cadastrar-curso' %}" class="col-sm-6 col-xs-12 btn btn-light">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Cadastrar Curso</h5>
+            <p class="card-text">
+              Cadastre aqui um novo <code>Curso</code>.
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+{% endblock %}

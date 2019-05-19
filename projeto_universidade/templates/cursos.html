@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+  <a class="btn btn-primary float-right mb-4" href="{% url 'cadastrar-curso' %}">Novo Curso</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Area</th>
+        <th scope="col">Nota MEC</th>
+        <th></th>
+        <th class="text-right pr-4" scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for curso in cursos %}
+        <tr>
+          <th scope="row">{{ curso.id }}</th>
+          <td>{{ curso.nome }}</td>
+          <td>{{ curso.area }}</td>
+          <td>{{ curso.notaMEC }}<td>
+          <td class="float-right border-0">
+            <a class="btn-sm btn-secondary mx-1" href="{% url 'visualizar-curso' codigo=curso.id %}">Visualizar</a>
+            <a class="btn-sm btn-primary mx-1" href="{% url 'editar-curso' codigo=curso.id %}">Editar</a>
+            <a class="btn-sm btn-danger mx-1" href="{% url 'excluir-curso' codigo=curso.id %}">Excluir</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>  
+
+{% endblock %}

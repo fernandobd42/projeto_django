@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block page_content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <!-- Cabeçalho -->
+            {% if "/cadastrar-universidade" in request.path %}
+              <h5 class="card-title">Cadastrar Universidade</h5>
+              <p class="card-text">
+                Cadastre uma nova <code>Universidade</code>.
+              </p>
+            {% elif "/editar-universidade" in request.path %}
+              <h5 class="card-title">Editar Universidade</h5>
+              <p class="card-text">
+                Altere as informações da <code>Universidade</code>.
+              </p>
+            {% elif "/visualizar-universidade" in request.path %}
+              <h5 class="card-title">Visualizar  Universidade</h5>
+              <p class="card-text">
+                Visualize as informações da <code>Universidade</code>.
+              </p>
+            {% elif "/excluir-universidade" in request.path %}
+              <h5 class="card-title">Excluir Universidade</h5>
+              <p class="card-text">
+                Você tem certeza que deseja excluir a <code>Universidade</code>?
+              </p>
+            {% endif %}
+          
+            <!-- Formulário -->
+            <form method="POST">
+              {% csrf_token %}
+              
+              <!-- Nome -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text font-weight-bold">Nome</span>
+                </div>
+                {% render_field form.nome class+="form-control" %}
+
+                {% if "/visualizar-universidade" in request.path or "/excluir-universidade" in request.path %}
+                  <input disabled value="{{universidade.nome}}" class="form-control text-black-50">
+                {% endif %}
+              </div>
+
+              {% for error in form.nome.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{error}}
+                </div>
+              {% endfor %}
+              
+
+              <!-- Sigla -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text font-weight-bold">Sigla</span>
+                </div>
+                {% render_field form.sigla class+="form-control" %}
+
+                {% if "/visualizar-universidade" in request.path or "/excluir-universidade" in request.path %}
+                  <input disabled value="{{universidade.sigla}}" class="form-control text-black-50">
+                {% endif %}
+              </div>
+  
+              {% for error in form.sigla.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{error}}
+                </div>
+              {% endfor %}
+
+
+              <!-- Descriçao -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text font-weight-bold">Descrição</span>
+                </div>
+                {% render_field form.descricao class+="form-control" %}
+
+                {% if "/visualizar-universidade" in request.path or "/excluir-universidade" in request.path %}
+                  <textarea rows="5" disabled class="form-control text-black-50">{{universidade.descricao}}</textarea>
+                {% endif %}
+              </div>
+
+              {% for error in form.descricao.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{error}}
+                </div>
+              {% endfor %}
+              
+
+              <!-- Endereço -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text font-weight-bold">Endereço</span>
+                </div>
+                {% render_field form.endereco class+="form-control" %}
+
+                {% if "/visualizar-universidade" in request.path or "/excluir-universidade" in request.path %}
+                  <input disabled value="{{universidade.endereco}}" class="form-control text-black-50">
+                {% endif %}
+              </div>
+
+              {% for error in form.endereco.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{error}}
+                </div>
+              {% endfor %}
+
+
+              <!-- Cursos -->
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text font-weight-bold">Cursos</span>
+                </div>
+                {% render_field form.cursos class+="form-control" %}
+
+                {% if "/visualizar-universidade" in request.path or "/excluir-universidade" in request.path %}
+                  <select disabled multiple class="form-control">
+                    {% for curso in universidade.cursos.all %}
+                      <option class="text-black-50" value="{{curso.id}}">{{curso.nome}}</option>
+                    {% endfor %}
+                  </select>    
+                {% endif %}
+              </div>
+              <p class="small">Mantenha pressionado o "Control", ou "Command" no Mac, para selecionar mais de uma opção.</p>
+  
+              {% for error in form.cursos.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{error}}
+                </div>
+              {% endfor %}
+
+              
+              <!-- Ações -->
+              <div class="float-right">
+                <a class="btn btn-secondary" href="{% url 'universidades' %}">Voltar</a>
+                {% if "/cadastrar-universidade" in request.path or "/editar-universidade" in request.path %}
+                  <button type="submit" class="btn btn-primary">Enviar</button>
+                {% elif "/excluir-universidade" in request.path %}
+                  <button type="submit" class="btn btn-danger">Confirmar</button>
+                {% endif %}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
